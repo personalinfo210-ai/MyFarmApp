@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Work Tracking System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">
+                <i class="bi bi-clipboard-data"></i>
+                <span id="appTitle">Employee Work Tracking System</span>
+            </span>
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                <i class="bi bi-gear"></i> <span id="settingsBtn">Settings</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="form-tab" data-bs-toggle="tab" data-bs-target="#form" type="button" role="tab">
+                    <span id="tab1">Form</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button" role="tab">
+                    <span id="tab2">Search Data</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="edited-tab" data-bs-toggle="tab" data-bs-target="#edited" type="button" role="tab">
+                    <span id="tab3">Edited Data</span>
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="mainTabsContent">
+            <div class="tab-pane fade show active" id="form" role="tabpanel">
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5 id="formTitle">New Entry Form</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="entryForm" name="google-sheet">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="date" class="form-label" id="dateLabel">Date</label>
+                                    <input type="date" class="form-control" id="date" name="Date" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="srno" class="form-label" id="srnoLabel">SR No</label>
+                                    <input type="text" class="form-control" id="srno" name="SR_No" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="employeeName" class="form-label" id="empNameLabel">Employee Name</label>
+                                    <input type="text" class="form-control" id="employeeName" name="Employee_Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="gender" class="form-label" id="genderLabel">Gender</label>
+                                    <select class="form-select" id="gender" name="Gender" required>
+                                        <option value="">Select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="dutyTime" class="form-label" id="dutyLabel">Duty Time</label>
+                                    <select class="form-select" id="dutyTime" name="Duty_Time" required>
+                                        <option value="">Select</option>
+                                        <option value="Morning">Morning</option>
+                                        <option value="Evening">Evening</option>
+                                        <option value="Full Day">Full Day</option>
+                                        <option value="Full Night">Full Night</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cropsName" class="form-label" id="cropsLabel">Crops Name</label>
+                                    <input type="text" class="form-control" id="cropsName" name="Crops_Name" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="farmName" class="form-label" id="farmLabel">Farm Name</label>
+                                    <input type="text" class="form-control" id="farmName" name="Farm_Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="workingTypes" class="form-label" id="workTypeLabel">Working Types</label>
+                                    <input type="text" class="form-control" id="workingTypes" name="Working_Types" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="farmersName" class="form-label" id="farmerLabel">Farmers Name</label>
+                                    <input type="text" class="form-control" id="farmersName" name="Farmers_Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="villageName" class="form-label" id="villageLabel">Village Name</label>
+                                    <input type="text" class="form-control" id="villageName" name="Village_Name" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label for="salary" class="form-label" id="salaryLabel">Salary</label>
+                                    <input type="number" step="0.01" class="form-control" id="salary" name="Salary" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="advance" class="form-label" id="advanceLabel">Advance</label>
+                                    <input type="number" step="0.01" class="form-control" id="advance" name="Advance" value="0">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="otherAdvance" class="form-label" id="otherAdvLabel">Other Advance</label>
+                                    <input type="number" step="0.01" class="form-control" id="otherAdvance" name="Other_Advance" value="0">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="received" class="form-label" id="receivedLabel">Received</label>
+                                    <input type="number" step="0.01" class="form-control" id="received" name="Received" value="0">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="remaining" class="form-label" id="remainingLabel">Remaining</label>
+                                    <input type="number" step="0.01" class="form-control" id="remaining" name="Remaining" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="otherInfo" class="form-label" id="otherInfoLabel">Any Other Information</label>
+                                    <input type="text" class="form-control" id="otherInfo" name="Other_Information">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <i class="bi bi-save"></i> Submit Entry
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="search" role="tabpanel">
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5 id="searchTitle">Search Data</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-5">
+                                <label for="searchFromDate" class="form-label" id="fromDateLabel">From Date</label>
+                                <input type="date" class="form-control" id="searchFromDate">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="searchToDate" class="form-label" id="toDateLabel">To Date</label>
+                                <input type="date" class="form-control" id="searchToDate">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">&nbsp;</label>
+                                <button class="btn btn-primary w-100" onclick="searchData()" id="searchBtnText">
+                                    <i class="bi bi-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="searchTable">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th id="thDate">Date</th>
+                                        <th id="thSrno">SR No</th>
+                                        <th id="thEmpName">Employee Name</th>
+                                        <th id="thGender">Gender</th>
+                                        <th id="thDuty">Duty Time</th>
+                                        <th id="thCrops">Crops Name</th>
+                                        <th id="thFarm">Farm Name</th>
+                                        <th id="thWorkType">Working Types</th>
+                                        <th id="thFarmer">Farmers Name</th>
+                                        <th id="thVillage">Village Name</th>
+                                        <th id="thSalary">Salary</th>
+                                        <th id="thAdvance">Advance</th>
+                                        <th id="thOtherAdv">Other Advance</th>
+                                        <th id="thReceived">Received</th>
+                                        <th id="thRemaining">Remaining</th>
+                                        <th id="thOtherInfo">Other Info</th>
+                                        <th id="thActions">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="searchTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="edited" role="tabpanel">
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5 id="editedTitle">Edited Data</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="editedTable">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th id="thDate2">Date</th>
+                                        <th id="thSrno2">SR No</th>
+                                        <th id="thEmpName2">Employee Name</th>
+                                        <th id="thGender2">Gender</th>
+                                        <th id="thDuty2">Duty Time</th>
+                                        <th id="thCrops2">Crops Name</th>
+                                        <th id="thFarm2">Farm Name</th>
+                                        <th id="thWorkType2">Working Types</th>
+                                        <th id="thFarmer2">Farmers Name</th>
+                                        <th id="thVillage2">Village Name</th>
+                                        <th id="thSalary2">Salary</th>
+                                        <th id="thAdvance2">Advance</th>
+                                        <th id="thOtherAdv2">Other Advance</th>
+                                        <th id="thReceived2">Received</th>
+                                        <th id="thRemaining2">Remaining</th>
+                                        <th id="thOtherInfo2">Other Info</th>
+                                        <th id="thActions2">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="editedTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="settingsModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsTitle">Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="srnoPrefix" class="form-label" id="prefixLabel">SR No Prefix</label>
+                        <input type="text" class="form-control" id="srnoPrefix" placeholder="e.g., EMP">
+                    </div>
+                    <div class="mb-3">
+                        <label for="languageSelect" class="form-label" id="langLabel">Language</label>
+                        <select class="form-select" id="languageSelect" onchange="changeLanguage()">
+                            <option value="en">English</option>
+                            <option value="gu">Gujarati</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-success w-100" onclick="exportCSV()" id="exportBtn">
+                            <i class="bi bi-download"></i> Export CSV File
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeBtn">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveSettings()" id="saveSettingsBtn">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalTitle">Edit Entry</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" name="google-sheet">
+                        <input type="hidden" id="editId">
+                        <input type="hidden" id="editSource">
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editDate" class="form-label" id="editDateLabel">Date</label>
+                                <input type="date" class="form-control" id="editDate" name="Date" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editSrno" class="form-label" id="editSrnoLabel">SR No</label>
+                                <input type="text" class="form-control" id="editSrno" name="SR_No" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editEmployeeName" class="form-label" id="editEmpNameLabel">Employee Name</label>
+                                <input type="text" class="form-control" id="editEmployeeName" name="Employee_Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editGender" class="form-label" id="editGenderLabel">Gender</label>
+                                <select class="form-select" id="editGender" name="Gender" required>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editDutyTime" class="form-label" id="editDutyLabel">Duty Time</label>
+                                <select class="form-select" id="editDutyTime" name="Duty_Time" required>
+                                    <option value="Morning">Morning</option>
+                                    <option value="Evening">Evening</option>
+                                    <option value="Full Day">Full Day</option>
+                                    <option value="Full Night">Full Night</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editCropsName" class="form-label" id="editCropsLabel">Crops Name</label>
+                                <input type="text" class="form-control" id="editCropsName" name="Crops_Name" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editFarmName" class="form-label" id="editFarmLabel">Farm Name</label>
+                                <input type="text" class="form-control" id="editFarmName" name="Farm_Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editWorkingTypes" class="form-label" id="editWorkTypeLabel">Working Types</label>
+                                <input type="text" class="form-control" id="editWorkingTypes" name="Working_Types" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editFarmersName" class="form-label" id="editFarmerLabel">Farmers Name</label>
+                                <input type="text" class="form-control" id="editFarmersName" name="Farmers_Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editVillageName" class="form-label" id="editVillageLabel">Village Name</label>
+                                <input type="text" class="form-control" id="editVillageName" name="Village_Name" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="editSalary" class="form-label" id="editSalaryLabel">Salary</label>
+                                <input type="number" step="0.01" class="form-control" id="editSalary" name="Salary" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="editAdvance" class="form-label" id="editAdvanceLabel">Advance</label>
+                                <input type="number" step="0.01" class="form-control" id="editAdvance" name="Advance">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="editOtherAdvance" class="form-label" id="editOtherAdvLabel">Other Advance</label>
+                                <input type="number" step="0.01" class="form-control" id="editOtherAdvance" name="Other_Advance">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="editReceived" class="form-label" id="editReceivedLabel">Received</label>
+                                <input type="number" step="0.01" class="form-control" id="editReceived" name="Received">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editRemaining" class="form-label" id="editRemainingLabel">Remaining</label>
+                                <input type="number" step="0.01" class="form-control" id="editRemaining" name="Remaining" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editOtherInfo" class="form-label" id="editOtherInfoLabel">Any Other Information</label>
+                                <input type="text" class="form-control" id="editOtherInfo" name="Other_Information">
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary" id="updateBtn">
+                                <i class="bi bi-save"></i> Update Entry
+                            </button>
+                            <button type="button" class="btn btn-success" onclick="submitToSheet()" id="submitSheetBtn" style="display:none;">
+                                <i class="bi bi-cloud-upload"></i> Submit to Sheet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="app.js"></script>
+</body>
+</html>
